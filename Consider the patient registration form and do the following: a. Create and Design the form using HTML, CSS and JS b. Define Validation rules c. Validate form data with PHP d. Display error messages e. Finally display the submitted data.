@@ -1,0 +1,134 @@
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Form validation&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;lab10.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+$nameErr = $phoneErr = $addressErr = $address_02Err = $cityErr = $stateErr = $emailErr = $genderErr =
+&quot;&quot;;
+$address_01 = $address_03 = $address_02 = $address_04 = $City = $state = $name =
+$chartnumber = $State_02= $email = $number = $gender = $numberErr = $location = &quot;&quot;;
+$City_02 = $state_02 = $name = $name_02 = $phone = $email = $comment =&quot;&quot; ;
+if ($_SERVER[&quot;REQUEST_METHOD&quot;] == &quot;POST&quot;)
+{
+if (empty($_POST[&quot;address_01&quot;]) || empty($_POST[&quot;address_02&quot;]))
+{
+$addressErr = &quot;Adress is Required&quot;;
+}
+if (empty($_POST[&quot;City&quot;]) || empty($_POST[&quot;state&quot;]) )
+{
+$nameErr = &quot;City ot state is Required&quot;;
+}
+
+if (empty($_POST[&quot;address_03&quot;]) || empty($_POST[&quot;address_04&quot;]))
+{
+$address_02Err = &quot;Address is Required&quot;;
+}
+if (empty($_POST[&quot;City_02&quot;]) || empty($_POST[&quot;state_02&quot;]) )
+{
+$stateErr = &quot;City ot state is Required&quot;;
+}
+if (empty($_POST[&quot;number&quot;]))
+{
+$numberErr = &quot;Phone Number is Required&quot;;
+}
+if (empty($_POST[&quot;email&quot;]))
+{
+$emailErr = &quot;Email is required&quot;;
+}
+else
+{
+$email = test_input($_POST[&quot;email&quot;]);
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+{
+$emailErr = &quot;Invalid email format&quot;;
+}
+}
+if (empty($_POST[&quot;name&quot;]))
+{
+$namerErr = &quot;Phone Number is Required&quot;;
+}
+if (empty($_POST[&quot;phone&quot;]))
+
+{
+$phoneErr = &quot;Phone Number is Required&quot;;
+}
+if (empty($_POST[&quot;gender&quot;]))
+{
+$genderErr = &quot;Gender is required&quot;;
+}
+else
+{
+$gender = test_input($_POST[&quot;gender&quot;]);
+}
+}
+function test_input($data)
+{
+$data = trim($data);
+$data = stripslashes($data);
+$data = htmlspecialchars($data);
+return $data;
+}
+?&gt;
+&lt;h3&gt;Patient Registration Form&lt;/h3&gt;
+&lt;h2&gt;Ahmad hospital&lt;/h2&gt;
+&lt;form method=&quot;post&quot; action=&quot;&lt;?php echo htmlspecialchars($_SERVER[&quot;PHP_SELF&quot;]);?&gt;&quot;&gt;
+Address: &lt;input type=&quot;text&quot; name=&quot;address_01&quot;&gt;&lt;br&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $addressErr;?&gt;&lt;/span&gt;
+Line 02 &lt;input type=&quot;text&quot; name=&quot;address_02&quot;&gt; &lt;br&gt;&lt;br&gt;
+
+City: &lt;input type=&quot;text&quot; name=&quot;City&quot;&gt;
+State/Province &lt;input type=&quot;text&quot; name=&quot;state&quot;&gt;
+
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $cityErr;?&gt;&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+
+Hospital Phone Number:&lt;br&gt; &lt;input type=&quot;number&quot; name=&quot;number&quot;&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $numberErr;?&gt;&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+
+Chart Number: &lt;input type=&quot;number&quot; name=&quot;chartnumber&quot;&gt; &lt;br&gt;&lt;br&gt;
+Registration Location: &lt;input type=&quot;text&quot; name=&quot;location&quot;&gt; &lt;br&gt;&lt;br&gt;
+Registration Date: &lt;input type=&quot;Date&quot; name=&quot;Date&quot;&gt;
+&lt;h3&gt;Patient Data&lt;/h3&gt;
+Patient Name: &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $nameErr;?&gt;&lt;/span&gt;
+Last Name: &lt;input type=&quot;text&quot; name=&quot;name_02&quot;&gt; &lt;br&gt;&lt;br&gt;
+Address: &lt;input type=&quot;text&quot; name=&quot;address_03&quot;&gt;&lt;br&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $address_02Err;?&gt;&lt;/span&gt;
+Line 02 &lt;input type=&quot;text&quot; name=&quot;address_04&quot;&gt; &lt;br&gt;&lt;br&gt;
+City: &lt;input type=&quot;text&quot; name=&quot;City_02&quot;&gt;
+State/Province &lt;input type=&quot;text&quot; name=&quot;state_02&quot;&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $stateErr;?&gt;&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+Patient Phone Number:&lt;br&gt; &lt;input type=&quot;number&quot; name=&quot;phone&quot;&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $phoneErr;?&gt;&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+Email: &lt;input type=&quot;text&quot; name=&quot;email&quot;&gt;
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $emailErr;?&gt;&lt;/span&gt;
+&lt;br&gt;&lt;br&gt; Gender: &lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;male&quot;&gt;Male
+&lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;female&quot;&gt;Female
+&lt;span class=&quot;error&quot;&gt;&lt;?php echo $genderErr;?&gt;&lt;/span&gt; &lt;br&gt;&lt;br&gt;
+Comment: &lt;input type=&quot;text&quot; name=&quot;comment&quot;&gt;
+&lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+&lt;/form&gt;
+&lt;?php echo &quot;&lt;h2&gt;Your Input:&lt;/h2&gt;&quot;;
+
+echo $address_01;
+echo &quot;&lt;br&gt;&quot;;
+echo $address_02;
+echo &quot;&lt;br&gt;&quot;; echo $City;
+echo &quot;&lt;br&gt;&quot;; echo $state;
+echo &quot;&lt;br&gt;&quot;; echo $number;
+echo &quot;&lt;br&gt;&quot;; echo $chartnumber;
+echo &quot;&lt;br&gt;&quot;; echo $location; echo &quot;&lt;br&gt;&quot;;
+echo &quot;&lt;h2&gt;Patient Data: &lt;/h2&gt;&quot;;
+echo $address_03; echo &quot;&lt;br&gt;&quot;;
+echo $address_04; echo &quot;&lt;br&gt;&quot;;
+echo $City_02; echo &quot;&lt;br&gt;&quot;;
+echo $State_02; echo &quot;&lt;br&gt;&quot;;
+echo $phone; echo &quot;&lt;br&gt;&quot;;
+echo $email; echo &quot;&lt;br&gt;&quot;;
+echo $comment; echo &quot;&lt;br&gt;&quot;;
+echo $gender;
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
